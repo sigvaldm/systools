@@ -5,19 +5,20 @@
 ################################################################################
 # MOUNT FOLDERS AS NECESSARY 
 
-
-
+echo "Mounting NAS"
+mount /media/diskstation/photo
+sleep 10
 
 
 ################################################################################
 # SET FOLDERS (IMPORTANT: INCLUDE TRAILING SLASH)
 
 # Source and destination folders
-SRC=/home/sigvald/Programming/systools/src/src/
-DEST=/home/sigvald/Programming/systools/src/dest/
+SRC=/media/sigma/PhotoDisk/
+DEST=/media/diskstation/photo/PhotoDisk/
 
 # Log folder
-LOG=/home/sigvald/Programming/systools/src/log/
+LOG=/media/diskstation/photo/log/
 
 ################################################################################
 # CHOOSE BACKUP STRATEGY
@@ -36,6 +37,24 @@ STRATEGY="--delete --backup --backup-dir=DELETED"
 
 DEBUG="--dry-run"
 # DEBUG=""
+
+################################################################################
+# CHECK IF FOLDERS EXISTS
+
+if [ ! -d "$SRC" ]; then
+	echo "Source not found: $SRC"
+	exit 1
+fi
+
+if [ ! -d "$DEST" ]; then
+	echo "Destination not found: $DEST"
+	exit 1
+fi
+
+if [ ! -d "$LOG" ]; then
+	echo "Log folder not found: $LOG"
+	exit 1
+fi
 
 ################################################################################
 # EXECUTE
